@@ -1,5 +1,9 @@
 # NavigableHash
 
+[![Build Status](https://travis-ci.org/jwaldrip/navigable_hash.png?branch=master)](https://travis-ci.org/jwaldrip/navigable_hash)
+[![Coverage Status](https://coveralls.io/repos/jwaldrip/navigable_hash/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/navigable_hash)
+[![Dependency Status](https://gemnasium.com/jwaldrip/navigable_hash.png)](https://gemnasium.com/jwaldrip/navigable_hash)
+
 TODO: Write a gem description
 
 ## Installation
