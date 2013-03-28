@@ -8,7 +8,7 @@ end
 
 describe NavigableHash do
 
-  TEST_HASH = { symbol_key: 'symbol_key_value', 'string_key' => 'string_key_value', hash_item: { inner_value: true }, array: [ {}, 'string', :symbol ] , nil_value: nil, object: Object.new }
+  TEST_HASH = { :symbol_key => 'symbol_key_value', 'string_key' => 'string_key_value', :hash_item => { :inner_value => true }, :array => [ {}, 'string', :symbol ] , :nil_value => nil, :object => Object.new }
 
   let(:hash){ TEST_HASH }
   let(:navigable){ NavigableHash.new(hash) }
