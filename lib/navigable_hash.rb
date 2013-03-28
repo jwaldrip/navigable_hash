@@ -13,7 +13,7 @@ class NavigableHash < HashWithIndifferentAccess
     self[m]
   end
 
-  def respond_to_missing?(m, include_private = false)
+  def respond_to?(m, include_private = false)
     true
   end
 
