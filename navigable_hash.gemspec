@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'navigable_hash/version'
+require 'navigable_hash'
 
 Gem::Specification.new do |spec|
   spec.name          = "navigable_hash"
