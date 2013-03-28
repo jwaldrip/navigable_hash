@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'navigable_hash'
 
 Gem::Specification.new do |spec|
   spec.name          = "navigable_hash"
-  spec.version       = NavigableHash::VERSION
+  spec.version       = "0.0.1"
   spec.authors       = ["Jason Waldrip", "Kevin Wanek"]
   spec.email         = ["jason@waldrip.net", "k@dmcy.us"]
   spec.description   = %q{Allows a hash to be navigated with dot notation or indifferent access}
