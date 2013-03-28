@@ -1,5 +1,10 @@
 require 'spec_helper'
 require 'pry'
+require 'helpers/helper_methods'
+
+RSpec.configure do |c|
+  c.extend NavigableHash::HelperMethods
+end
 
 describe NavigableHash do
 
@@ -18,7 +23,6 @@ describe NavigableHash do
 
     context "given an array" do
       it "should call #navigate with each value" do
-        size = hash[:array].size
         navigable.should_receive(:navigate_array).with(hash[:array])
         navigable[:array]
       end
@@ -47,12 +51,21 @@ describe NavigableHash do
     end
   end
 
-  TEST_HASH.keys.each do |key_name|
-    describe "##{key_name}" do
-      it "should call navigate" do
-        navigable.should_receive(:navigate).any_number_of_times.and_call_original
-        navigable.send(key_name).should == TEST_HASH[key_name]
-      end
+  context "with dot notation" do
+    TEST_HASH.keys.each do |key_name|
+      test_key_with_dot_notation(key_name, TEST_HASH)
+    end
+  end
+
+  context "with symbol notation" do
+    TEST_HASH.keys.each do |key_name|
+      test_key_with_symbol_notation(key_name, TEST_HASH)
+    end
+  end
+
+  context "with string notation" do
+    TEST_HASH.keys.each do |key_name|
+      test_key_with_string_notation(key_name, TEST_HASH)
     end
   end
 
