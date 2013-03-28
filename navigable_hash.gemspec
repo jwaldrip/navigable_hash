@@ -6,8 +6,8 @@ require 'navigable_hash/version'
 Gem::Specification.new do |spec|
   spec.name          = "navigable_hash"
   spec.version       = NavigableHash::VERSION
-  spec.authors       = ["Jason Waldrip"]
-  spec.email         = ["jason@waldrip.net"]
+  spec.authors       = ["Jason Waldrip", "Kevin Wanek"]
+  spec.email         = ["jason@waldrip.net", "k@dmcy.us"]
   spec.description   = %q{Allows a hash to be navigated with dot notation or indifferent access}
   spec.summary       = %q{Allows a hash to be navigated with dot notation or indifferent access}
   spec.homepage      = "http://github.com/jwaldrip/navigable_hash"
