@@ -243,7 +243,7 @@ describe NavigableHash do
   end
 
   describe "#values_at" do
-    let (:hash){ { :foo => "foo_value", :bar => "bar_value", baz: "baz_value" } }
+    let (:hash){ { :foo => "foo_value", :bar => "bar_value", :baz => "baz_value" } }
     it "should have the correct values" do
       navigable.values_at(:foo, :bar).should == [hash[:foo], hash[:bar]]
     end
