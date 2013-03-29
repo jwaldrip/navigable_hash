@@ -69,6 +69,25 @@ describe NavigableHash do
     it "should set a value" do
       expect { navigable.any_method = 'value' }.to change { navigable.any_method }
     end
+
+    it "should raise an error with more than one argument" do
+      expect { navigable.any_method = :foo, :bar }.to raise_error
+    end
+  end
+
+  describe "#any_method" do
+    it "should not raise an error" do
+      expect { navigable.any_method }.to_not raise_error
+    end
+
+    it "should get a value" do
+      navigable.any_method = "foo"
+      navigable.any_method.should == "foo"
+    end
+
+    it "should raise an error with arguments" do
+      expect { navigable.any_method :foo }.to raise_error
+    end
   end
 
   describe "#[]" do
