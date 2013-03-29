@@ -71,7 +71,7 @@ describe NavigableHash do
     end
 
     it "should raise an error with more than one argument" do
-      expect { navigable.any_method = :foo, :bar }.to raise_error
+      expect { navigable.send :any_method, :foo, :bar }.to raise_error
     end
   end
 
