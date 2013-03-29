@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/jwaldrip/navigable_hash.png?branch=master)](https://travis-ci.org/jwaldrip/navigable_hash)
 [![Coverage Status](https://coveralls.io/repos/jwaldrip/navigable_hash/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/navigable_hash)
 [![Code Climate](https://codeclimate.com/github/jwaldrip/navigable_hash.png)](https://codeclimate.com/github/jwaldrip/navigable_hash)
-[![Dependency Status](https://gemnasium.com/jwaldrip/navigable_hash.png)](https://gemnasium.com/jwaldrip/navigable_hash)
 
 NavigableHash was built as lightweight and quick way to navigate through a hash or array object using the familiar ruby dot notation.  See 'Usage' below for examples.  Keys as strings or symbols don't matter, its all included.
 
