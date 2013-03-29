@@ -31,7 +31,7 @@ describe NavigableHash do
 
     context "given a hash" do
       it "should return a new instance of navigable hash" do
-        hash = {a: 1, b: 2, c: 3}
+        hash = {:a => 1, :b => 2, :c => 3}
         navigable.should_receive(:navigate_hash).with(hash)
         navigable[:hash] = hash
       end
