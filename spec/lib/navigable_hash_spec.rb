@@ -10,6 +10,20 @@ describe NavigableHash do
 
   TEST_HASH = { :symbol_key => 'symbol_key_value', 'string_key' => 'string_key_value', :hash_item => { :inner_value => true }, :array => [ {}, 'string', :symbol ] , :nil_value => nil, :object => Object.new }
 
+  describe ".new" do
+    context "given an array" do
+      it "should not raise an error" do
+        expect { NavigableHash.new([:a, 1]) }.to_not raise_error
+      end
+    end
+
+    context "given a hash" do
+      it "should not raise an error" do
+        expect { NavigableHash.new({:a => 1}) }.to_not raise_error
+      end
+    end
+  end
+
   describe ".new(TEST_HASH)" do
     context "with dot notation" do
       TEST_HASH.keys.each do |key_name|
@@ -144,6 +158,21 @@ describe NavigableHash do
     end
   end
 
+  describe "#delete" do
+    context "given a string as the key" do
+      it "should delete a value" do
+        expect { navigable.delete('hash_item') }.to change { navigable[:hash_item] }.to(nil)
+      end
+    end
+
+    context "given a symbol as the key" do
+      it "should delete a value" do
+        expect { navigable.delete(:hash_item) }.to change { navigable[:hash_item] }.to(nil)
+      end
+    end
+  end
+
+
   describe "#dup" do
     it "should return a copy of navigable hash" do
       navigable.dup.should be_an_instance_of NavigableHash
@@ -151,6 +180,21 @@ describe NavigableHash do
 
     it "should be equal to its original" do
       navigable.dup.should == navigable
+    end
+  end
+
+  describe "#key?" do
+    context "if a key exists" do
+      it "should be true" do
+        navigable[:present_key] = 'value'
+        navigable.key?(:present_key).should be_true
+      end
+    end
+
+    context "if a key does not exist" do
+      it "should be false" do
+        navigable.key?(:no_key).should be_false
+      end
     end
   end
 
@@ -172,7 +216,7 @@ describe NavigableHash do
     end
   end
 
-  describe "to_hash" do
+  describe "#to_hash" do
     it "should be an instance of Hash" do
       navigable.to_hash.should be_an_instance_of Hash
     end
@@ -195,6 +239,13 @@ describe NavigableHash do
   describe "#respond_to?" do
     it "should always be true" do
       navigable.respond_to?(:this_is_not_a_method).should be_true
+    end
+  end
+
+  describe "#values_at" do
+    let (:hash){ { :foo => "foo_value", :bar => "bar_value", baz: "baz_value" } }
+    it "should have the correct values" do
+      navigable.values_at(:foo, :bar).should == [hash[:foo], hash[:bar]]
     end
   end
 
