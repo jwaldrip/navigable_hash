@@ -10,6 +10,26 @@ describe NavigableHash do
 
   TEST_HASH = { :symbol_key => 'symbol_key_value', 'string_key' => 'string_key_value', :hash_item => { :inner_value => true }, :array => [ {}, 'string', :symbol ] , :nil_value => nil, :object => Object.new }
 
+  describe ".new(TEST_HASH)" do
+    context "with dot notation" do
+      TEST_HASH.keys.each do |key_name|
+        test_key_with_dot_notation(key_name, TEST_HASH)
+      end
+    end
+
+    context "with symbol notation" do
+      TEST_HASH.keys.each do |key_name|
+        test_key_with_symbol_notation(key_name, TEST_HASH)
+      end
+    end
+
+    context "with string notation" do
+      TEST_HASH.keys.each do |key_name|
+        test_key_with_string_notation(key_name, TEST_HASH)
+      end
+    end
+  end
+
   let(:hash){ TEST_HASH }
   let(:navigable){ NavigableHash.new(hash) }
 
@@ -22,6 +42,63 @@ describe NavigableHash do
       navigable.foo.bar.baz = value
       navigable.foo.bar.baz.should == value
     end
+  end
+
+  describe "#__any_method__" do
+    it "should not raise an error" do
+      expect { navigable.__any_method__ }.to_not raise_error
+    end
+
+    it "should get a value" do
+      navigable.__any_method__ = "foo"
+      navigable.__any_method__.should == "foo"
+    end
+
+    it "should raise an error with arguments" do
+      expect { navigable.__any_method__ :foo }.to raise_error
+    end
+  end
+
+  describe "#__any_method__=" do
+    it "should not raise an error" do
+      expect { navigable.__any_method__ = 'value' }.to_not raise_error
+    end
+
+    it "should set a value" do
+      expect { navigable.__any_method__ = 'value' }.to change { navigable.__any_method__ }
+    end
+
+    it "should raise an error with more than one argument" do
+      expect { navigable.send :__any_method__, :foo, :bar }.to raise_error
+    end
+  end
+
+  describe "#[]" do
+
+    context "given a hash" do
+      it "should return a new instance of navigable hash" do
+        navigable[:hash_item].should be_an_instance_of NavigableHash
+      end
+    end
+
+    context "given an array" do
+      it "should call #navigate with each value" do
+        navigable[:array].should be_a Array
+      end
+    end
+
+    context "given any object" do
+      it "should return a value" do
+        navigable[:object].should be_an_instance_of Object
+      end
+    end
+
+    context "given nil" do
+      it "should return a value" do
+        navigable[:nil_value].should be_nil
+      end
+    end
+
   end
 
   describe "#[]=" do
@@ -61,84 +138,57 @@ describe NavigableHash do
     end
   end
 
-  describe "#any_method=" do
-    it "should not raise an error" do
-      expect { navigable.any_method = 'value' }.to_not raise_error
-    end
-
-    it "should set a value" do
-      expect { navigable.any_method = 'value' }.to change { navigable.any_method }
-    end
-
-    it "should raise an error with more than one argument" do
-      expect { navigable.send :any_method, :foo, :bar }.to raise_error
-    end
-  end
-
-  describe "#any_method" do
-    it "should not raise an error" do
-      expect { navigable.any_method }.to_not raise_error
-    end
-
-    it "should get a value" do
-      navigable.any_method = "foo"
-      navigable.any_method.should == "foo"
-    end
-
-    it "should raise an error with arguments" do
-      expect { navigable.any_method :foo }.to raise_error
-    end
-  end
-
-  describe "#[]" do
-
-    context "given a hash" do
-      it "should return a new instance of navigable hash" do
-        navigable[:hash_item].should be_a NavigableHash
-      end
-    end
-
-    context "given an array" do
-      it "should call #navigate with each value" do
-        navigable[:array].should be_a Array
-      end
-    end
-
-    context "given any object" do
-      it "should return a value" do
-        navigable[:object].should be_an_instance_of Object
-      end
-    end
-
-    context "given nil" do
-      it "should return a value" do
-        navigable[:nil_value].should be_nil
-      end
-    end
-
-  end
-
   describe "#==" do
     it "should be equal to a hash" do
       navigable.should == hash
     end
   end
 
-  context "with dot notation" do
-    TEST_HASH.keys.each do |key_name|
-      test_key_with_dot_notation(key_name, TEST_HASH)
+  describe "#dup" do
+    it "should return a copy of navigable hash" do
+      navigable.dup.should be_an_instance_of NavigableHash
+    end
+
+    it "should be equal to its original" do
+      navigable.dup.should == navigable
     end
   end
 
-  context "with symbol notation" do
-    TEST_HASH.keys.each do |key_name|
-      test_key_with_symbol_notation(key_name, TEST_HASH)
+  describe "#fetch" do
+    context "given a hash" do
+      let(:hash){ { :hash => {} } }
+      it "should return an instance of NavigableHash" do
+        navigable.fetch(:hash).should be_an_instance_of NavigableHash
+      end
     end
   end
 
-  context "with string notation" do
-    TEST_HASH.keys.each do |key_name|
-      test_key_with_string_notation(key_name, TEST_HASH)
+  describe "#merge" do
+    context "given a hash" do
+      it "should have a navigable hash" do
+        merged = navigable.merge({ :some_hash => {}})
+        merged[:some_hash].should be_an_instance_of NavigableHash
+      end
+    end
+  end
+
+  describe "to_hash" do
+    it "should be an instance of Hash" do
+      navigable.to_hash.should be_an_instance_of Hash
+    end
+
+    it "inner hash should be an instance of hash" do
+      navigable[:hash_item].should be_an_instance_of NavigableHash
+      navigable.to_hash['hash_item'].should be_an_instance_of Hash
+    end
+  end
+
+  describe "#update" do
+    context "given a hash" do
+      it "should have a navigable hash" do
+        navigable.update({ :some_hash => {}})
+        navigable[:some_hash].should be_an_instance_of NavigableHash
+      end
     end
   end
 
