@@ -19,8 +19,9 @@ class NavigableHash < HashWithIndifferentAccess
   end
 
   def method_missing(m, *args, &block)
-    if /(?<key>.+)=$/ =~ m && args.size == 1
-      self.send :[]=, key, args.first
+    m = m.to_s
+    if args.size == 1 && m.gsub!(/(.+)=$/, '\1')
+      self.send :[]=, m, args.first
     elsif args.size == 0
       self.send :[], m
     else
