@@ -1,5 +1,6 @@
 # NavigableHash
 
+[![Gem Version](https://badge.fury.io/rb/navigable_hash.png)](http://badge.fury.io/rb/navigable_hash)
 [![Build Status](https://travis-ci.org/jwaldrip/navigable_hash.png?branch=master)](https://travis-ci.org/jwaldrip/navigable_hash)
 [![Coverage Status](https://coveralls.io/repos/jwaldrip/navigable_hash/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/navigable_hash)
 [![Code Climate](https://codeclimate.com/github/jwaldrip/navigable_hash.png)](https://codeclimate.com/github/jwaldrip/navigable_hash)
