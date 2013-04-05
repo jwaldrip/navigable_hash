@@ -1,3 +1,5 @@
+require 'navigable_array'
+
 class NavigableHash < Hash
 
   def initialize(constructor = {})
@@ -161,7 +163,7 @@ class NavigableHash < Hash
   end
 
   def navigate_array(value)
-    value.map { |item| navigate item }
+    NavigableArray.new value.map { |item| navigate item }
   end
 
   def navigate_value(value)

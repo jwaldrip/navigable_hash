@@ -97,7 +97,7 @@ describe NavigableHash do
 
     context "given an array" do
       it "should call #navigate with each value" do
-        navigable[:array].should be_a Array
+        navigable[:array].should be_an_instance_of NavigableArray
       end
     end
 
