@@ -13,4 +13,10 @@ describe NavigableArray do
     end
   end
 
+  describe "#respond_to?" do
+    it "should always be true" do
+      navigable.respond_to?(:not_a_real_method).should be_true
+    end
+  end
+
 end
