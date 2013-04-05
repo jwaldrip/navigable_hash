@@ -78,7 +78,7 @@ class NavigableHash < Hash
   end
 
   def respond_to?(m, include_private = false)
-    true
+    has_key?(m) || super
   end
 
   def to_hash

@@ -79,7 +79,7 @@ describe NavigableHash do
     end
 
     it "should set a value" do
-      expect { navigable.__any_method__ = 'value' }.to change { navigable.__any_method__ }
+      expect { navigable.__any_method__ = 'value' }.to change { navigable[:__any_method__] }
     end
 
     it "should raise an error with more than one argument" do
@@ -237,8 +237,23 @@ describe NavigableHash do
   end
 
   describe "#respond_to?" do
-    it "should always be true" do
-      navigable.respond_to?(:this_is_not_a_method).should be_true
+    context "if the key exists" do
+      it "should be " do
+        navigable.respond_to?(:this_is_not_a_method).should be_false
+      end
+    end
+
+    context "if the key does not exist" do
+      it "should be " do
+        navigable[:this_is_not_a_method] = "Hello"
+        navigable.respond_to?(:this_is_not_a_method).should be_true
+      end
+    end
+
+    context "with a real method" do
+      it "should be true" do
+        navigable.respond_to?(:to_hash).should be_true
+      end
     end
   end
 
