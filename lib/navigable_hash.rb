@@ -1,7 +1,9 @@
 class NavigableHash < Hash
 
-  def initialize(constructor = {})
-    if constructor.is_a?(Hash)
+  def initialize(constructor = {}, &block)
+    if block_given?
+      yield self
+    elsif constructor.is_a?(Hash)
       super()
       update(constructor)
     else
@@ -168,14 +170,20 @@ class NavigableHash < Hash
     value
   end
 
+  def navigate_hash_from_block(key, &block)
+    self[key] = self.class.new &block
+  end
+
   private
 
   def method_missing(m, *args, &block)
     m = m.to_s
     if args.size == 1 && m.gsub!(/(.+)=$/, '\1')
-      self.send :[]=, m, args.first
+      self[m] = args.first
+    elsif args.size == 0 && block_given?
+      self.navigate_hash_from_block m, &block
     elsif args.size == 0
-      self.send :[], m
+      self[m]
     else
       raise ArgumentError, "wrong number of arguments(#{args.size} for 0)"
     end

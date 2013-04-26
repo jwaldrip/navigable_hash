@@ -22,6 +22,29 @@ describe NavigableHash do
         expect { NavigableHash.new({:a => 1}) }.to_not raise_error
       end
     end
+
+    context "given a block" do
+      it "should not raise an error" do
+        expect do
+          NavigableHash.new do |v|
+            v.foo = :bar
+          end
+        end.to_not raise_error
+      end
+
+      it "should create a new navigable hash" do
+        navigable = NavigableHash.new do |v|
+        end
+        navigable.should be_a NavigableHash
+      end
+
+      it "should assign values in the block to the hash" do
+        navigable = NavigableHash.new do |v|
+          v.foo = :bar
+        end
+        navigable.foo.should == :bar
+      end
+    end
   end
 
   describe ".new(TEST_HASH)" do
@@ -71,6 +94,30 @@ describe NavigableHash do
     it "should raise an error with arguments" do
       expect { navigable.__any_method__ :foo }.to raise_error
     end
+
+    context "given a block" do
+      it "should not raise an error" do
+        expect do
+          navigable.__any_method__ do |v|
+            v.foo = :bar
+          end
+        end.to_not raise_error
+      end
+
+      it "should create a new navigable hash" do
+        navigable.__any_method__ do |v|
+        end
+        navigable.__any_method__.should be_a NavigableHash
+      end
+
+      it "should assign values in the block to the hash" do
+        navigable.__any_method__ do |v|
+          v.foo = :bar
+        end
+        navigable.__any_method__.foo.should == :bar
+      end
+    end
+
   end
 
   describe "#__any_method__=" do
