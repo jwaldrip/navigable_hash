@@ -7,7 +7,7 @@ module NavigableHash::HelperMethods
     end
     describe "##{key}" do
       it "should call navigate" do
-        navigable.should_receive(:navigate).any_number_of_times
+        navigable.stub(:navigate)
         navigable.send(key)
       end
 
@@ -24,7 +24,7 @@ module NavigableHash::HelperMethods
     end
     describe "##{key}" do
       it "should call navigate" do
-        navigable.should_receive(:navigate).any_number_of_times
+        navigable.stub(:navigate)
         navigable[key.to_sym]
       end
 
@@ -41,7 +41,7 @@ module NavigableHash::HelperMethods
     end
     describe "##{key}" do
       it "should call navigate" do
-        navigable.should_receive(:navigate).any_number_of_times
+        navigable.stub(:navigate)
         navigable[key.to_s]
       end
 
