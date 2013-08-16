@@ -147,7 +147,7 @@ class NavigableHash < Hash
 
   def navigate value
     case value
-    when NavigableHash
+    when self.class
       value
     when Hash
       navigate_hash value

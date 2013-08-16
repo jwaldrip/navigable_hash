@@ -68,7 +68,7 @@ describe NavigableHash do
   end
 
   let(:hash){ TEST_HASH }
-  let(:navigable){ NavigableHash.new(hash) }
+  subject(:navigable){ NavigableHash.new(hash) }
 
   context "with a deep setter" do
     let(:hash){ {} }
@@ -170,8 +170,22 @@ describe NavigableHash do
     context "given a hash" do
       it "should return a new instance of navigable hash" do
         hash = {:a => 1, :b => 2, :c => 3}
-        navigable.should_receive(:navigate_hash).with(hash)
+        navigable.should_receive(:navigate_hash).with(hash).and_call_original
         navigable[:hash] = hash
+        navigable[:hash].should be_an_instance_of NavigableHash
+      end
+
+      context "given a subclass, setting with a navigable hash" do
+        before(:each) do
+          stub_const 'SubNavigableHash', Class.new(NavigableHash)
+        end
+        subject(:navigable){ SubNavigableHash.new(hash) }
+        it 'should return an instance of the subclass' do
+          hash = NavigableHash.new :a => 1, :b => 2, :c => 3
+          navigable.should_receive(:navigate_hash).with(hash).and_call_original
+          navigable[:hash] = hash
+          navigable[:hash].should be_an_instance_of SubNavigableHash
+        end
       end
     end
 
