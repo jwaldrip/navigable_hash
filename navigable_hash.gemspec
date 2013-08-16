@@ -18,10 +18,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "coveralls"
-  spec.add_development_dependency "simplecov-multi"
+  spec.add_development_dependency "rake", "10.1.0"
+  spec.add_development_dependency "rspec", '2.14'
+  spec.add_development_dependency "pry", '0.9.12.2'
+  spec.add_development_dependency "coveralls", "0.6.7"
+  spec.add_development_dependency "guard", "1.8.2"
+  spec.add_development_dependency "guard-rspec", "3.0.2"
+  spec.add_development_dependency "guard-bundler", "1.0.0"
+  spec.add_development_dependency "simplecov-multi", "0.0.1"
 
 end
