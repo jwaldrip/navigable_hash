@@ -1,9 +1,10 @@
 # NavigableHash
 
-[![Gem Version](https://badge.fury.io/rb/navigable_hash.png)](http://badge.fury.io/rb/navigable_hash)
-[![Build Status](https://travis-ci.org/jwaldrip/navigable_hash.png?branch=master)](https://travis-ci.org/jwaldrip/navigable_hash)
-[![Coverage Status](https://coveralls.io/repos/jwaldrip/navigable_hash/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/navigable_hash)
-[![Code Climate](https://codeclimate.com/github/jwaldrip/navigable_hash.png)](https://codeclimate.com/github/jwaldrip/navigable_hash)
+[![Version](http://allthebadges.io/jwaldrip/navigable_hash/badge_fury.png)](http://allthebadges.io/jwaldrip/navigable_hash/badge_fury)
+[![Dependencies](http://allthebadges.io/jwaldrip/navigable_hash/gemnasium.png)](http://allthebadges.io/jwaldrip/navigable_hash/gemnasium)
+[![Build Status](http://allthebadges.io/jwaldrip/navigable_hash/travis.png)](http://allthebadges.io/jwaldrip/navigable_hash/travis)
+[![Coverage](http://allthebadges.io/jwaldrip/navigable_hash/coveralls.png)](http://allthebadges.io/jwaldrip/navigable_hash/coveralls)
+[![Code Climate](http://allthebadges.io/jwaldrip/navigable_hash/code_climate.png)](http://allthebadges.io/jwaldrip/navigable_hash/code_climate)
 
 NavigableHash was built as lightweight and quick way to navigate through a hash or array object using the familiar ruby dot notation.  See 'Usage' below for examples.  Keys as strings or symbols don't matter, its all included.
 
