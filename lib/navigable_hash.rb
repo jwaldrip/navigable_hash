@@ -177,16 +177,29 @@ class NavigableHash < Hash
   private
 
   def method_missing(m, *args, &block)
-    m = m.to_s
-    if args.size == 1 && m.gsub!(/(.+)=$/, '\1')
-      self[m] = args.first
-    elsif args.size == 0 && block_given?
-      self.navigate_hash_from_block m, &block
-    elsif args.size == 0
-      self[m]
-    else
-      raise ArgumentError, "wrong number of arguments(#{args.size} for 0)"
-    end
+    struct = OpenStruct.new(self)
+    return_value = struct.send(m, *args, &block)
+    table = struct.instance_variable_get(:@table)
+    replace table if table
+    return_value
+    #
+    # m = m.to_s
+    # # Setter
+    # if args.size == 1 && m.gsub!(/(.+)=$/, '\1')
+    #   self[m] = args.first
+    #
+    # # Block Setter / Block Eval
+    # elsif args.size == 0 && block_given?
+    #   self.navigate_hash_from_block m, &block
+    #
+    # # Getter
+    # elsif args.size == 0
+    #   self[m]
+    #
+    # # Raise invalid
+    # else
+    #   raise ArgumentError, "wrong number of arguments(#{args.size} for 0)"
+    # end
   end
 
 end
