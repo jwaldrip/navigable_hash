@@ -92,7 +92,10 @@ describe NavigableHash do
     end
 
     it "should raise an error with arguments" do
-      expect { navigable.__any_method__ :foo }.to raise_error
+      expect {
+        $pry = true
+        navigable.__any_method__ :foo
+      }.to raise_error
     end
 
     context "given a block" do

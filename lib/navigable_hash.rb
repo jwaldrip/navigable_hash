@@ -196,8 +196,10 @@ class NavigableHash < Hash
       set_and_cache_value(m, *args)
     elsif args.empty? && block_given?
       self.navigate_hash_from_block m, &block
+    elsif args.empty?
+      get_and_cache_value(m)
     else
-      get_and_cache_value(m, *args)
+      fail ArgumentError, "wrong number of arguments (#{args.count} for 0)"
     end
   end
 
