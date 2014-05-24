@@ -12,7 +12,7 @@ module NavigableHash::HelperMethods
       end
 
       it "should have a valid value" do
-        navigable.send(key).should == hash[key]
+        expect(navigable.send key).to eq hash[key]
       end
     end
   end
@@ -29,7 +29,7 @@ module NavigableHash::HelperMethods
       end
 
       it "should have a valid value" do
-        navigable[key.to_sym].should == hash[key]
+        expect(navigable[key.to_sym]).to eq hash[key]
       end
     end
   end
@@ -46,7 +46,7 @@ module NavigableHash::HelperMethods
       end
 
       it "should have a valid value" do
-        navigable[key.to_s].should == hash[key]
+        expect(navigable[key.to_s]).to eq hash[key]
       end
     end
   end

@@ -35,14 +35,14 @@ describe NavigableHash do
       it "should create a new navigable hash" do
         navigable = NavigableHash.new do |v|
         end
-        navigable.should be_a NavigableHash
+        expect(navigable).to be_a NavigableHash
       end
 
       it "should assign values in the block to the hash" do
         navigable = NavigableHash.new do |v|
           v.foo = :bar
         end
-        navigable.foo.should == :bar
+        expect(navigable.foo).to eq :bar
       end
     end
   end
@@ -77,7 +77,7 @@ describe NavigableHash do
       navigable.foo = {}
       navigable.foo.bar = {}
       navigable.foo.bar.baz = value
-      navigable.foo.bar.baz.should == value
+      expect(navigable.foo.bar.baz).to eq value
     end
   end
 
@@ -88,7 +88,7 @@ describe NavigableHash do
 
     it "should get a value" do
       navigable.__any_method__ = "foo"
-      navigable.__any_method__.should == "foo"
+      expect(navigable.__any_method__).to eq "foo"
     end
 
     it "should raise an error with arguments" do
@@ -107,14 +107,14 @@ describe NavigableHash do
       it "should create a new navigable hash" do
         navigable.__any_method__ do |v|
         end
-        navigable.__any_method__.should be_a NavigableHash
+        expect(navigable.__any_method__).to be_a NavigableHash
       end
 
       it "should assign values in the block to the hash" do
         navigable.__any_method__ do |v|
           v.foo = :bar
         end
-        navigable.__any_method__.foo.should == :bar
+        expect(navigable.__any_method__.foo).to eq :bar
       end
     end
 
@@ -138,25 +138,25 @@ describe NavigableHash do
 
     context "given a hash" do
       it "should return a new instance of navigable hash" do
-        navigable[:hash_item].should be_an_instance_of NavigableHash
+        expect(navigable[:hash_item]).to be_an_instance_of NavigableHash
       end
     end
 
     context "given an array" do
       it "should call #navigate with each value" do
-        navigable[:array].should be_a Array
+        expect(navigable[:array]).to be_a Array
       end
     end
 
     context "given any object" do
       it "should return a value" do
-        navigable[:object].should be_an_instance_of Object
+        expect(navigable[:object]).to be_an_instance_of Object
       end
     end
 
     context "given nil" do
       it "should return a value" do
-        navigable[:nil_value].should be_nil
+        expect(navigable[:nil_value]).to be_nil
       end
     end
 
@@ -170,9 +170,9 @@ describe NavigableHash do
     context "given a hash" do
       it "should return a new instance of navigable hash" do
         hash = {:a => 1, :b => 2, :c => 3}
-        navigable.should_receive(:navigate_hash).with(hash).and_call_original
+        expect(navigable).to receive(:navigate_hash).with(hash).and_call_original
         navigable[:hash] = hash
-        navigable[:hash].should be_an_instance_of NavigableHash
+        expect(navigable[:hash]).to be_an_instance_of NavigableHash
       end
 
       context "given a subclass, setting with a navigable hash" do
@@ -182,9 +182,9 @@ describe NavigableHash do
         subject(:navigable){ SubNavigableHash.new(hash) }
         it 'should return an instance of the subclass' do
           hash = NavigableHash.new :a => 1, :b => 2, :c => 3
-          navigable.should_receive(:navigate_hash).with(hash).and_call_original
+          expect(navigable).to receive(:navigate_hash).with(hash).and_call_original
           navigable[:hash] = hash
-          navigable[:hash].should be_an_instance_of SubNavigableHash
+          expect(navigable[:hash]).to be_an_instance_of SubNavigableHash
         end
       end
     end
@@ -192,7 +192,7 @@ describe NavigableHash do
     context "given an array" do
       it "should call #navigate with each value" do
         array = [1, 2, 3]
-        navigable.should_receive(:navigate_array).with(array)
+        expect(navigable).to receive(:navigate_array).with(array)
         navigable[:array] = array
       end
     end
@@ -200,14 +200,14 @@ describe NavigableHash do
     context "given any object" do
       it "should return a value" do
         object = Object.new
-        navigable.should_receive(:navigate_value).with(object)
+        expect(navigable).to receive(:navigate_value).with(object)
         navigable[:object] = object
       end
     end
 
     context "given nil" do
       it "should return a value" do
-        navigable.should_receive(:navigate_value).with(nil)
+        expect(navigable).to receive(:navigate_value).with(nil)
         navigable[:nil_value] = nil
       end
     end
@@ -215,7 +215,7 @@ describe NavigableHash do
 
   describe "#==" do
     it "should be equal to a hash" do
-      navigable.should == hash
+      expect(navigable).to eq hash
     end
   end
 
@@ -236,11 +236,11 @@ describe NavigableHash do
 
   describe "#dup" do
     it "should return a copy of navigable hash" do
-      navigable.dup.should be_an_instance_of NavigableHash
+      expect(navigable.dup).to be_an_instance_of NavigableHash
     end
 
     it "should be equal to its original" do
-      navigable.dup.should == navigable
+      expect(navigable.dup).to eq navigable
     end
   end
 
@@ -248,13 +248,13 @@ describe NavigableHash do
     context "if a key exists" do
       it "should be true" do
         navigable[:present_key] = 'value'
-        navigable.key?(:present_key).should be_true
+        expect(navigable.key? :present_key).to be_true
       end
     end
 
     context "if a key does not exist" do
       it "should be false" do
-        navigable.key?(:no_key).should be_false
+        expect(navigable.key? :no_key).to be_false
       end
     end
   end
@@ -263,7 +263,7 @@ describe NavigableHash do
     context "given a hash" do
       let(:hash){ { :hash => {} } }
       it "should return an instance of NavigableHash" do
-        navigable.fetch(:hash).should be_an_instance_of NavigableHash
+        expect(navigable.fetch :hash).to be_an_instance_of NavigableHash
       end
     end
   end
@@ -272,19 +272,19 @@ describe NavigableHash do
     context "given a hash" do
       it "should have a navigable hash" do
         merged = navigable.merge({ :some_hash => {}})
-        merged[:some_hash].should be_an_instance_of NavigableHash
+        expect(merged[:some_hash]).to be_an_instance_of NavigableHash
       end
     end
   end
 
   describe "#to_hash" do
     it "should be an instance of Hash" do
-      navigable.to_hash.should be_an_instance_of Hash
+      expect(navigable.to_hash).to be_an_instance_of Hash
     end
 
     it "inner hash should be an instance of hash" do
-      navigable[:hash_item].should be_an_instance_of NavigableHash
-      navigable.to_hash['hash_item'].should be_an_instance_of Hash
+      expect(navigable[:hash_item]).to be_an_instance_of NavigableHash
+      expect(navigable.to_hash['hash_item']).to be_an_instance_of Hash
     end
   end
 
@@ -292,7 +292,7 @@ describe NavigableHash do
     context "given a hash" do
       it "should have a navigable hash" do
         navigable.update({ :some_hash => {}})
-        navigable[:some_hash].should be_an_instance_of NavigableHash
+        expect(navigable[:some_hash]).to be_an_instance_of NavigableHash
       end
     end
   end
@@ -300,20 +300,20 @@ describe NavigableHash do
   describe "#respond_to?" do
     context "if the key exists" do
       it "should be " do
-        navigable.respond_to?(:this_is_not_a_method).should be_false
+        expect(navigable).to_not respond_to :this_is_not_a_method
       end
     end
 
     context "if the key does not exist" do
       it "should be " do
         navigable[:this_is_not_a_method] = "Hello"
-        navigable.respond_to?(:this_is_not_a_method).should be_true
+        expect(navigable).to respond_to :this_is_not_a_method
       end
     end
 
     context "with a real method" do
       it "should be true" do
-        navigable.respond_to?(:to_hash).should be_true
+        expect(navigable).to respond_to :to_hash
       end
     end
   end
@@ -321,13 +321,13 @@ describe NavigableHash do
   describe "#values_at" do
     let (:hash){ { :foo => "foo_value", :bar => "bar_value", :baz => "baz_value" } }
     it "should have the correct values" do
-      navigable.values_at(:foo, :bar).should == [hash[:foo], hash[:bar]]
+      expect(navigable.values_at :foo, :bar).to eq [hash[:foo], hash[:bar]]
     end
   end
 
   describe "#method_missing" do
     it "should return nil" do
-      navigable.this_is_not_a_method.should be_nil
+      expect(navigable.this_is_not_a_method).to be_nil
     end
 
     it "should not raise an error" do
