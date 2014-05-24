@@ -176,16 +176,28 @@ class NavigableHash < Hash
 
   private
 
+  def set_and_cache_value(key, value)
+    cache_getter! key
+    self[key] = value
+  end
+
+  def get_and_cache_value(key)
+    cache_getter! key
+    self[key]
+  end
+
+  def cache_getter!(key)
+    define_singleton_method(key) { self[key] } unless respond_to? key
+  end
+
   def method_missing(m, *args, &block)
     m = m.to_s
-    if args.size == 1 && m.gsub!(/(.+)=$/, '\1')
-      self[m] = args.first
-    elsif args.size == 0 && block_given?
+    if m.chomp!('=') && args.count == 1
+      set_and_cache_value(m, *args)
+    elsif args.empty? && block_given?
       self.navigate_hash_from_block m, &block
-    elsif args.size == 0
-      self[m]
     else
-      raise ArgumentError, "wrong number of arguments(#{args.size} for 0)"
+      get_and_cache_value(m, *args)
     end
   end
 
