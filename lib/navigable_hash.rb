@@ -46,7 +46,7 @@ class NavigableHash < Hash
   # Same as <tt>Hash#fetch</tt> where the key passed as argument can be
   # either a string or a symbol:
   #
-  #   counters = HashWithIndifferentAccess.new
+  #   counters = NavigableHash.new
   #   counters[:foo] = 1
   #
   #   counters.fetch("foo")          # => 1
@@ -60,7 +60,7 @@ class NavigableHash < Hash
 
   # Checks the hash for a key matching the argument passed in:
   #
-  #   hash = HashWithIndifferentAccess.new
+  #   hash = NavigableHash.new
   #   hash["key"] = "value"
   #   hash.key? :key  # => true
   #   hash.key? "key" # => true
@@ -107,7 +107,7 @@ class NavigableHash < Hash
 
   # Returns an array of the values at the specified indices:
   #
-  #   hash = HashWithIndifferentAccess.new
+  #   hash = NavigableHash.new
   #   hash[:a] = "x"
   #   hash[:b] = "y"
   #   hash.values_at("a", "b") # => ["x", "y"]
